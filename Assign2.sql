@@ -16,9 +16,9 @@ Customers  */
 
 INSERT INTO customers (cust_id, cust_name, product, quantity, total_price)
 VALUES
-(1,"Pratik", "A", 2, 40.02),
-(2,"Shlok", "B", 5, 25),
-(3,"Shridhar", "C", 4, 58.12);
+(1,"P", "A", 2, 40.02),
+(2,"S", "B", 5, 25),
+(3,"Sh", "C", 4, 58.12);
 
 SELECT * FROM customers;
 
