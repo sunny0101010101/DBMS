@@ -12,10 +12,10 @@ CREATE TABLE Student (
 /* Insert 10 records to the table students */
 INSERT INTO Student (roll_no, name, division, branch, city, marks)
 VALUES
-(1, "Pratik", "B", "CSE-AI", "Abad", 87 ),
-(2, "Harsh", "B", "CSE-AI", "Pune", 57),
-(3, "Nikhil" , "C", "Comp", "Abad", 78),
-(4, "Shlok", "A", "IOT" , "Nashik", 90);
+(1, "P", "B", "CSE-AI", "Abad", 87 ),
+(2, "H", "B", "CSE-AI", "Pune", 57),
+(3, "N" , "C", "Comp", "Abad", 78),
+(4, "S", "A", "IOT" , "Nashik", 90);
 
 SELECT * FROM student;
 /*List all the student names with their corresponding city */
