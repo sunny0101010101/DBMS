@@ -17,7 +17,7 @@ CREATE TABLE new_records (
 
 INSERT INTO Old_records (roll_no, name)
 VALUES
-(101, 'Pratik'),
+(101, 'P'),
 (102, 'Rohit'),
 (103, 'Ananya'),
 (104, 'Riya'),
