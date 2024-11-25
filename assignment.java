@@ -1,11 +1,11 @@
 import java.sql.*;
 
-public class DatabaseOperations {
+public class assignment {
 
     // Database credentials
     static final String DB_URL = "jdbc:mysql://localhost:3306/college";  // Replace 'school' with your DB name
     static final String USER = "root";  // Replace with your MySQL username
-    static final String PASS = "2@12";  // Replace with your MySQL password
+    static final String PASS = "*****";  // Replace with your MySQL password
 
     public static void main(String[] args) {
         try {
