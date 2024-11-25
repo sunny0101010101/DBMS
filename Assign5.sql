@@ -18,7 +18,7 @@ CREATE TABLE Fine (
 -- Insert sample data into borrower table
 INSERT INTO borrower (Rollin, Name, DateOfIssue, NameOfBook, Status)
 VALUES 
-(101, 'Pratik Dhage', '2024-10-08', 'Theory Of Computation', 'I'),
+(101, 'P', '2024-10-08', 'Theory Of Computation', 'I'),
 (102, 'Rohit Sharma', '2024-10-09', 'Database Systems', 'R'),
 (103, 'Ananya Singh', '2024-10-10', 'Artificial Intelligence', 'I'),
 (104, 'Riya Patel', '2024-10-11', 'Data Structures and Algorithms', 'R'),
