@@ -23,10 +23,10 @@ CREATE TABLE orders (
 
 INSERT INTO customers (ID, name, age, address, salary)
 values
-(1, "Pratik", 19, "Kamal Kanha", 50000),
-(2, "Shlok", 19, "Katraj", 46820),
-(3, "Harsh", 19, "Vishrant Wadi", 20000),
-(4, "Shridhar", 19, "Chakan", 15000) ;
+(1, "P", 19, "Kamal Kanha", 50000),
+(2, "S", 19, "Katraj", 46820),
+(3, "H", 19, "Vishrant Wadi", 20000),
+(4, "Sh", 19, "Chakan", 15000) ;
 
 INSERT INTO orders (O_ID, O_date, customer_id, amount)
 VALUES
