@@ -1,23 +1,26 @@
-/* Aim : To study Cursors: (All types: Implicit, Explicit, Cursor FOR Loop, Parameterized Cursor) 
 
-Problem Statement: Write a PL/SQL block of code using parameterized Cursor, that will merge the data 
-available in the newly created table N_RollCall with the data available in the table O_Roll-call. If the data in 
-the first table already exists in the second table then that data should be skipped. 
-PREREQUISITE:Knowledge of PL/SQL block  */
+USE practical_preperation;
 
-CREATE TABLE Old_records (
-		roll_no INT (10),
-        name VARCHAR (20)
+-- Drop existing tables if they exist
+DROP TABLE IF EXISTS old_records;
+DROP TABLE IF EXISTS new_records;
+
+-- Create the Old_records table
+CREATE TABLE IF NOT EXISTS old_records (
+    roll_no INT(10),
+    name VARCHAR(20)
 );
 
-CREATE TABLE new_records (
-	roll_no INT (10),
-    name VARCHAR (20)
+-- Create the New_records table
+CREATE TABLE IF NOT EXISTS new_records (
+    roll_no INT(10),
+    name VARCHAR(20)
 );
 
-INSERT INTO Old_records (roll_no, name)
+-- Insert sample data into Old_records
+INSERT INTO old_records (roll_no, name) 
 VALUES
-(101, 'P'),
+(101, 'Pratik'),
 (102, 'Rohit'),
 (103, 'Ananya'),
 (104, 'Riya'),
@@ -28,44 +31,60 @@ VALUES
 (109, 'Pooja'),
 (110, 'Vikram');
 
+-- Insert sample data into New_records
 INSERT INTO new_records (roll_no, name)
 VALUES 
 (107, 'Meera'),
 (108, 'Akash'),
-(103, 'Ananya')
-;
+(103, 'Ananya');
 
+-- Verify the initial content of New_records
 SELECT * FROM new_records;
 
+-- Create a stored procedure to merge records
 DELIMITER $$
 
-DECLARE 
-	v_rollno_ old_records.roll_no %TYPE;
-    v_name old_records.name %TYPE;
-    
-    CURSOR C1 IS
-		SELECT roll_no, name
-        FROM old_records
-        WHERE roll_no NOT IN (roll_no IN new_records);
+CREATE PROCEDURE merge_records()
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE v_rollno INT;
+    DECLARE v_name VARCHAR(20);
 
-BEGIN 
-	 OPEN C1;
-     LOOP 
-		FETCH C1 INTO v_rollno, v_name;
-        
-        EXIT WHEN C1 %NOTFOUND;
-        
+    -- Declare a cursor for selecting records not in New_records
+    DECLARE cur CURSOR FOR
+        SELECT roll_no, name
+        FROM old_records
+        WHERE roll_no NOT IN (SELECT roll_no FROM new_records);
+
+    -- Declare a handler to manage cursor end
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    -- Open the cursor
+    OPEN cur;
+
+    -- Loop through the cursor
+    read_loop: LOOP
+        FETCH cur INTO v_rollno, v_name;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- Insert records into New_records
         INSERT INTO new_records (roll_no, name)
-        VALUES
-        (v_rollno, v_name);
-        
-        DBMS_OUTPUT.PUT_LINE ('Inserted Roll No. :' || v_roll_no || ', Name:' || v_name);
-      END LOOP;
-      
-      CLOSE C1;
-      
-END;
-/        
+        VALUES (v_rollno, v_name);
+
+        -- Optionally, output inserted records (requires session support for output)
+        SELECT CONCAT('Inserted Roll No.: ', v_rollno, ', Name: ', v_name) AS message;
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE cur;
+END$$
+
 DELIMITER ;
 
+-- Call the stored procedure
+CALL merge_records();
+
+-- Verify the content of New_records after merging
 SELECT * FROM new_records;
